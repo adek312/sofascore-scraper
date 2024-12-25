@@ -13,7 +13,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 # Sofascore Site
 url = "https://www.sofascore.com/pl/zawodnik/cristiano-ronaldo/750"
 driver.get(url)
-
+player = url.split('/')[-2]
 # Cookies
 try:
     modal_close_button = driver.find_element(By.CSS_SELECTOR, '.fc-button-label')
@@ -93,7 +93,7 @@ try:
     # Create excel
     wb = openpyxl.Workbook()
     sheet = wb.active
-    sheet.title = "Sofascore_: {player}"
+    sheet.title = f"Sofascore_{player}"
     
     sheet["A1"] = "Date"
     sheet["B1"] = "Teams"
@@ -101,13 +101,13 @@ try:
     sheet["D1"] = "Rating"
     
     for i, match_data in enumerate(data, start=2):  
-        sheet[f"A{i}"] = match_data["Data"]
+        sheet[f"A{i}"] = match_data["Date"]
         sheet[f"B{i}"] = match_data["Teams"]
         sheet[f"C{i}"] = match_data["Result"]
         sheet[f"D{i}"] = match_data["Rating"]
 
-    wb.save("Sofascore_Player: {player}.xlsx")
-    print("Data saved to file: 'Sofascore_: {player}.xlsx'.")
+    wb.save(f"Sofascore_{player}.xlsx")
+    print(f"Data saved to file: 'Sofascore_{player}.xlsx'.")
 
 except Exception as e:
     print(f"Saving excel Error: {e}")
