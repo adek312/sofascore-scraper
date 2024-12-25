@@ -23,7 +23,7 @@ except Exception as e:
 
 # Enter matches tab
 try:
-    matches_tab = driver.find_element(By.CSS_SELECTOR, '[href="#tab:matches"]')  # Znajdź zakładkę "Mecze"
+    matches_tab = driver.find_element(By.CSS_SELECTOR, '[href="#tab:matches"]') 
     matches_tab.click()
     print("Enter Matches tab")
 except Exception as e:
@@ -100,7 +100,7 @@ try:
     sheet["C1"] = "Result"
     sheet["D1"] = "Rating"
     
-    for i, match_data in enumerate(data, start=2):  # zaczynamy od wiersza 2 (aby nagłówki były w wierszu 1)
+    for i, match_data in enumerate(data, start=2):  
         sheet[f"A{i}"] = match_data["Data"]
         sheet[f"B{i}"] = match_data["Teams"]
         sheet[f"C{i}"] = match_data["Result"]
