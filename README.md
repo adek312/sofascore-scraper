@@ -14,15 +14,16 @@ Gather data about:
 ## Usage/Examples
 Git clone the project
 
-Just insert in **url** variable which player you want to gather match data.
+Just insert sofascore link to a player in **url** variable.
 E.g. Cristiano Ronaldo
 ```python
 url = "https://www.sofascore.com/player/cristiano-ronaldo/750"
 ```
-And type in terminal 
+And enter in terminal 
 ```
 py main.py
 ```
 ## Output
 Example output:
-![xlsx file image](https://postimg.cc/1gtTXdL5)
+
+![xlsx output Cristiano](https://i.imgur.com/d9dD5nQ.png)
