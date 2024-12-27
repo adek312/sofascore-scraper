@@ -11,7 +11,7 @@ import openpyxl
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 # Sofascore Site
-url = "https://www.sofascore.com/pl/zawodnik/cristiano-ronaldo/750"
+url = "https://www.sofascore.com/player/cristiano-ronaldo/750"
 driver.get(url)
 player = url.split('/')[-2]
 # Cookies
@@ -30,9 +30,8 @@ except Exception as e:
     print(f"Error while entering matches tab: {e}")
 time.sleep(5)
 
-
 # Scroll to bottom to load every match
-scroll_pause_time = 2
+scroll_pause_time = 3
 last_height = driver.execute_script("return document.body.scrollHeight")
 while True:
     
@@ -53,13 +52,12 @@ while True:
 # Download all matches
 matches = driver.find_elements(By.CSS_SELECTOR, "[data-testid='event_cell']")  
 print(f"Found {len(matches)} matches")
-
 data = []
 
 # Gather specific data
 for i, match in enumerate(matches):
     try:
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 20).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, "[data-testid='event_cell']"))
         )
         
@@ -71,12 +69,11 @@ for i, match in enumerate(matches):
         result_raw = match.find_element(By.CSS_SELECTOR, ".yaNbA").text
         result = result_raw.replace("\n", ":").strip()
         
-        rating_raw = driver.find_elements(By.XPATH, "//span[@aria-valuenow]")
         try:
-            rating = rating_raw[i].get_attribute('aria-valuenow')
-        except IndexError:
-            rating = "N.D"
-
+            rating_element = match.find_element(By.XPATH, ".//span[contains(text(), '.') and string-length(text())=3]")
+            rating = driver.execute_script("return arguments[0].innerText;", rating_element).strip()
+        except Exception as e:
+            rating = "N.A"
         
         # Add all gathered data to dictionary
         data.append({
