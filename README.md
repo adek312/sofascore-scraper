@@ -25,4 +25,4 @@ py main.py
 ```
 ## Output
 Example output:
-![xlsx file image](https://imgur.com/d9dD5nQ)
+![xlsx file image](https://postimg.cc/1gtTXdL5)
